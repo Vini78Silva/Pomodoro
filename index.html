@@ -51,7 +51,26 @@ iniciar = iniciarCronometro()
 
 function pausarCronometro() {
     clearInterval(intervalo);
-    intervalo = null;
+    display.innerHTML = '00:10:00';
+
+    segundos++;
+    if (segundos / 60 === 1) {
+    segundos = 0;
+    minutos++;
+  }
+    if (minutos / 60 === 1) {
+      minutos = 0;
+      horas++;
+    }
+
+
+
+
+
+
+
+
+
 }
 
 function zerarCronometro() {
@@ -69,7 +88,7 @@ function atualizarTempo() {
       minutos = 0;
       horas++;
     }
-  }
+}
 
   // Formata a exibição para sempre ter 2 dígitos
   let s = segundos < 10 ? '0' + segundos : segundos;
