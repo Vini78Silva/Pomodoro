@@ -23,22 +23,18 @@
 			  let pausar = document.querySelector('#pause')
 			  let reset = document.querySelector('#reset')
 			  let iniciar = document.querySelector('#start')
-          	  screen.orientation.addEventListener("change", (event) => {
-              const type = event.target.type;
-              const angle = event.target.angle;
-  
-                if(angle == 90){
-                  pausar = pausarCronometro();
-                } else if (angle == 270){
+        screen.orientation.addEventListener("change", (event) => {
+          const type = event.target.type;
+          const angle = event.target.angle;  
+                   if (angle == 90){
+                    pausar = pausarCronometro();
+                  } else if (angle == 270){
                   reset = zerarCronometro() 
-                } else{
+                  } else{
                   iniciar = iniciarCronometro()
                 }
-
-			  paragrafo.textContent = (`New orientation: ${type} ${angle} degrees`);
             });
-
-            let [horas, minutos, segundos] = [0, 0, 0];
+let [horas, minutos, segundos] = [0, 0, 0];
 let display = document.getElementById('display');
 let intervalo = null;
 
@@ -50,6 +46,8 @@ function iniciarCronometro() {
   if (intervalo !== null) return; // Evita múltiplos intervalos simultâneos
   intervalo = setInterval(atualizarTempo, 1000);
 }
+
+iniciar = iniciarCronometro()
 
 function pausarCronometro() {
     clearInterval(intervalo);
