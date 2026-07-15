@@ -9,18 +9,68 @@
 
 <body>
     <div></div>
-    <p id="spanRelogio" onload="relogio()"></p>
+    <div class="cronometro">
+  <h1 id="display">00:00:00</h1>
+  <button id="start">Iniciar</button>
+  <button id="pause">Pausar</button>
+  <button id="reset">Zerar</button>
+</div>
+
 
 
     <script>
 			
-			  let paragrafo = document.querySelector('#spanRelogio')
+			  let paragrafo = document.querySelector('#pause')
           	  screen.orientation.addEventListener("change", (event) => {
               const type = event.target.type;
               const angle = event.target.angle;
   
-			  paragrafo.textContent = (`New orientation: ${type} ${angle} degrees`);
+			        paragrafo = pausarCronometro();
             });
+
+            let [horas, minutos, segundos] = [0, 0, 0];
+let display = document.getElementById('display');
+let intervalo = null;
+
+document.getElementById('start').addEventListener('click', iniciarCronometro);
+document.getElementById('pause').addEventListener('load', pausarCronometro);
+document.getElementById('reset').addEventListener('click', zerarCronometro);
+
+function iniciarCronometro() {
+  if (intervalo !== null) return; // Evita múltiplos intervalos simultâneos
+  intervalo = setInterval(atualizarTempo, 1000);
+}
+
+function pausarCronometro() {
+    clearInterval(intervalo);
+    intervalo = null;
+}
+
+function zerarCronometro() {
+  pausarCronometro();
+  [horas, minutos, segundos] = [0, 0, 0];
+  display.innerHTML = '00:00:00';
+}
+
+function atualizarTempo() {
+  segundos++;
+  if (segundos / 60 === 1) {
+    segundos = 0;
+    minutos++;
+    if (minutos / 60 === 1) {
+      minutos = 0;
+      horas++;
+    }
+  }
+
+  // Formata a exibição para sempre ter 2 dígitos
+  let s = segundos < 10 ? '0' + segundos : segundos;
+  let m = minutos < 10 ? '0' + minutos : minutos;
+  let h = horas < 10 ? '0' + horas : horas;
+
+  display.innerHTML = `${h}:${m}:${s}`;
+}
+
 
 
     </script>
